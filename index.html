@@ -282,6 +282,10 @@
             overflow: hidden;
         }
 
+        .btn, .card, .social-link, .play-btn {
+            cursor: pointer;
+        }
+
         .btn::before {
             content: '';
             position: absolute;
@@ -417,6 +421,129 @@
             }
         }
 
+        /* Custom Cursor */
+        body {
+            cursor: none;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: all 0.1s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.05s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 25, 0.1);
+            border: 2px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .cursor.click {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 25, 0.2);
+            border: 3px solid var(--primary);
+        }
+
+        /* Magnetic Cursor Effect */
+        .magnetic {
+            transition: transform 0.3s ease;
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 25, 0.4) 0%, transparent 70%);
+            pointer-events: none;
+            animation: ripple-animation 0.8s ease-out;
+        }
+
+        @keyframes ripple-animation {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Mouse trail particles */
+        .trail-particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: trail-fade 1s ease-out forwards;
+        }
+
+        @keyframes trail-fade {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Glow effect for interactive elements */
+        .glow-on-hover {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .glow-on-hover::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-on-hover:hover::before {
+            opacity: 0.7;
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -468,6 +595,10 @@
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
     <!-- Animated Background -->
     <div class="bg-animated"></div>
     
@@ -484,7 +615,7 @@
 
         <!-- Cards Grid -->
         <div class="cards-grid">
-            <div class="card gaming-card">
+            <div class="card gaming-card glow-on-hover magnetic">
                 <div class="card-icon">🎮</div>
                 <h3 class="card-title">Gaming Passion</h3>
                 <p class="card-description">
@@ -493,7 +624,7 @@
                 </p>
             </div>
 
-            <div class="card skills-card">
+            <div class="card skills-card glow-on-hover magnetic">
                 <div class="card-icon">⚡</div>
                 <h3 class="card-title">Digital Skills</h3>
                 <p class="card-description">
@@ -502,7 +633,7 @@
                 </p>
             </div>
 
-            <div class="card music-card">
+            <div class="card music-card glow-on-hover magnetic">
                 <div class="card-icon">🎵</div>
                 <h3 class="card-title">Music Lover</h3>
                 <p class="card-description">
@@ -519,13 +650,13 @@
                 Click để xem tin nhắn ngẫu nhiên!
             </div>
             <div class="controls">
-                <button class="btn" onclick="showRandomMessage()">Random Message</button>
-                <button class="btn btn-secondary" onclick="clearMessage()">Clear</button>
+                <button class="btn glow-on-hover magnetic" onclick="showRandomMessage()">Random Message</button>
+                <button class="btn btn-secondary glow-on-hover magnetic" onclick="clearMessage()">Clear</button>
             </div>
 
             <!-- Audio Player -->
             <div class="audio-player">
-                <button class="play-btn" onclick="toggleMusic()" id="playBtn">▶</button>
+                <button class="play-btn glow-on-hover magnetic" onclick="toggleMusic()" id="playBtn">▶</button>
                 <div class="audio-info">
                     <div class="audio-title">Background Music</div>
                     <div class="audio-artist">Hoang Thai Collection</div>
@@ -536,10 +667,10 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="social-links">
-                <a href="#" class="social-link">📧</a>
-                <a href="#" class="social-link">💬</a>
-                <a href="#" class="social-link">🌐</a>
-                <a href="#" class="social-link">📱</a>
+                <a href="#" class="social-link glow-on-hover magnetic">📧</a>
+                <a href="#" class="social-link glow-on-hover magnetic">💬</a>
+                <a href="#" class="social-link glow-on-hover magnetic">🌐</a>
+                <a href="#" class="social-link glow-on-hover magnetic">📱</a>
             </div>
             <p style="color: var(--text-secondary);">
                 © 2025 Hoang Thai. Designed with ❤️ and passion.
@@ -548,6 +679,129 @@
     </div>
 
     <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        // Update mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Smooth cursor animation
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            
+            cursor.style.left = cursorX - 10 + 'px';
+            cursor.style.top = cursorY - 10 + 'px';
+            
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor hover effects
+        const interactiveElements = document.querySelectorAll('button, a, .card, .magnetic');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(2)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+
+        // Click effect
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(3)';
+            
+            // Create ripple effect
+            createRipple(mouseX, mouseY);
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // Create ripple effect
+        function createRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = x - 50 + 'px';
+            ripple.style.top = y - 50 + 'px';
+            ripple.style.width = '100px';
+            ripple.style.height = '100px';
+            
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 800);
+        }
+
+        // Magnetic effect for elements
+        const magneticElements = document.querySelectorAll('.magnetic');
+        
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const moveX = x * 0.15;
+                const moveY = y * 0.15;
+                
+                el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Enhanced trail particles
+        let trailParticles = [];
+        let lastParticleTime = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastParticleTime > 50) { // Create particle every 50ms
+                createTrailParticle(e.clientX, e.clientY);
+                lastParticleTime = now;
+            }
+        });
+
+        function createTrailParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'trail-particle';
+            particle.style.left = x - 4 + 'px';
+            particle.style.top = y - 4 + 'px';
+            
+            // Random colors
+            const colors = ['#ff0019', '#0066ff', '#ff6b35', '#00d4ff'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.background = randomColor;
+            particle.style.boxShadow = `0 0 10px ${randomColor}`;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        }
+
         // Messages array
         const messages = ["HoangThai", "Free Fire", "LOL", "Welcome!", "Gaming Time!", "Let's Play!", "Epic Moment!", "Victory!"];
         let currentMessageIndex = 0;
@@ -625,36 +879,24 @@
         // Add smooth scroll behavior
         document.documentElement.style.scrollBehavior = 'smooth';
 
-        // Add cursor trail effect
-        document.addEventListener('mousemove', (e) => {
-            const trail = document.createElement('div');
-            trail.style.position = 'fixed';
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
-            trail.style.width = '4px';
-            trail.style.height = '4px';
-            trail.style.background = 'var(--primary)';
-            trail.style.borderRadius = '50%';
-            trail.style.pointerEvents = 'none';
-            trail.style.zIndex = '9999';
-            trail.style.animation = 'trail 0.5s ease-out forwards';
-            
-            document.body.appendChild(trail);
-            
-            setTimeout(() => {
-                trail.remove();
-            }, 500);
+        // Parallax scroll effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.bg-animated');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
         });
 
-        // Add trail animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes trail {
-                0% { transform: scale(1); opacity: 1; }
-                100% { transform: scale(0); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+            cursorDot.style.opacity = '0';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
+            cursorDot.style.opacity = '1';
+        });
     </script>
 </body>
 </html>
